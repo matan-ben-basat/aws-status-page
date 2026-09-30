@@ -88,6 +88,7 @@ DATABASES = {
         'HOST': DATABASE.get('HOST'),
         'PORT': DATABASE.get('PORT'),
         'CONN_MAX_AGE': DATABASE.get('CONN_MAX_AGE'),
+        'OPTIONS': DATABASE.get('OPTIONS', {}),
     },
 }
 
