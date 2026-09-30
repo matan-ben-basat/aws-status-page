@@ -1,11 +1,11 @@
 // Second, independent pipeline: builds the same status-page app as a
 // container and deploys it to the isolated EKS demo cluster (terraform-eks/,
-// k8s/, in the statuspage-infra repo). Deliberately separate from the main
+// k8s/, in the aws-status-page-infra repo). Deliberately separate from the main
 // Jenkinsfile — proves the same CI/CD controller (this Jenkins box) can
 // drive two different deployment targets (VM-based and Kubernetes-based)
 // without the two pipelines interfering with each other.
 //
-// Lives in THIS repo (not statuspage-infra) because `docker build` needs
+// Lives in THIS repo (not aws-status-page-infra) because `docker build` needs
 // the Dockerfile that's checked out alongside it — same reasoning as why
 // the main Jenkinsfile is duplicated here too.
 pipeline {
