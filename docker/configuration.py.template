@@ -1,0 +1,39 @@
+# Wildcard ('*') disabled Django's Host-header validation entirely, letting an
+# attacker send a spoofed Host header and poison any absolute URL the app
+# builds from request.get_host() (e.g. password-reset links). The LoadBalancer
+# Service's hostname is only known after Terraform/kubectl create it (a
+# chicken-and-egg problem for a Deployment env var baked in ahead of time), so
+# scope to the domain suffix AWS actually issues LB hostnames under instead —
+# still validates real requests, and nobody outside AWS can register a host
+# under this suffix, unlike a bare '*'.
+ALLOWED_HOSTS = ['.elb.amazonaws.com']
+
+DATABASE = {
+    'NAME': '${DB_NAME}',
+    'USER': '${DB_USER}',
+    'PASSWORD': '${DB_PASSWORD}',
+    'HOST': '${DB_HOST}',
+    'PORT': '${DB_PORT}',
+    'CONN_MAX_AGE': 300,
+}
+
+REDIS = {
+    'tasks': {
+        'HOST': '${REDIS_HOST}',
+        'PORT': ${REDIS_PORT},
+        'PASSWORD': '',
+        'DATABASE': 0,
+        'SSL': False,
+    },
+    'caching': {
+        'HOST': '${REDIS_HOST}',
+        'PORT': ${REDIS_PORT},
+        'PASSWORD': '',
+        'DATABASE': 1,
+        'SSL': False,
+    },
+}
+
+SECRET_KEY = '${SECRET_KEY}'
+
+SITE_URL = '${SITE_URL}'
